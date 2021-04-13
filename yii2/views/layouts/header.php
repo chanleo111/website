@@ -12,14 +12,15 @@ use yii\bootstrap\NavBar;
         ],
     ]);
 
-    echo Nav::widget([
+    echo Nav::widget([        
+        'encodeLabels' => false,// icon request
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;Home', 'url' => ['/site/index']],
+            ['label' => '<i class="glyphicon glyphicon-info-sign"></i>&nbsp;About', 'url' => ['/site/about']],
+            ['label' => '<i class=""></i>Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => '<i class="glyphicon glyphicon-lock"></i>&nbsp;Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
