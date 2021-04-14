@@ -1,15 +1,17 @@
 <?php
 
 namespace app\models;
+use yii\db\ActiveRecord;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
     public $id;
     public $username;
     public $password;
     public $authKey;
     public $accessToken;
-
+    
+    /*
     private static $users = [
         '100' => [
             'id' => '100',
@@ -26,7 +28,13 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
+    */   
+    public static function tableName()
 
+    {
+        return 'user';
+    }
+    
 
     /**
      * {@inheritdoc}
@@ -58,13 +66,16 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
+        /*
         foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
                 return new static($user);
             }
         }
-
-        return null;
+        */
+        
+        $user = User::findAll(['username' => $username ,'deleted' => 0]);               
+        return $user;
     }
 
     /**

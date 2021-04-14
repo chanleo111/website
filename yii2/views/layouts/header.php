@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 ?>
@@ -19,6 +20,7 @@ use yii\bootstrap\NavBar;
             ['label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;Home', 'url' => ['/site/index']],
             ['label' => '<i class="glyphicon glyphicon-info-sign"></i>&nbsp;About', 'url' => ['/site/about']],
             ['label' => '<i class=""></i>Contact', 'url' => ['/site/contact']],
+            ['label' => '<i class=""></i>Announcement', 'url' => ['/announcement/announcement']],
             Yii::$app->user->isGuest ? (
                 ['label' => '<i class="glyphicon glyphicon-lock"></i>&nbsp;Login', 'url' => ['/site/login']]
             ) : (
