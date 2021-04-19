@@ -7,9 +7,12 @@ use Yii;
  * This is the model class for table "announcement".
  *
  * @property int $id
- * @property int $annoid
- * @property string $language
- * @property string $voice_file
+ * @property string $title
+ * @property string description
+ * @property date start_date
+ * @property date end_date
+ * @property int $enable
+ 
  */
 class Announcement extends \yii\db\ActiveRecord
 {
@@ -27,9 +30,11 @@ class Announcement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['annoid', 'language', 'voice_file'], 'required'],
-            [['annoid'], 'integer'],
-            [['language', 'voice_file'], 'string', 'max' => 25],
+            [['title', 'enable', 'description'], 'required'],
+            [['id'], 'integer'],
+            [['start_date','end_date'], 'string'],            
+            [['title'], 'string', 'max' => 25],
+            [['description'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,10 +44,12 @@ class Announcement extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'annoid' => Yii::t('app', 'Annoid'),
-            'language' => Yii::t('app', 'Language'),
-            'voice_file' => Yii::t('app', 'Voice File'),
+            'id' => Yii::t('app', 'ID'),            
+            'title' => Yii::t('app', 'Title'),
+            'description' => Yii::t('app', 'Description'),
+            'enable' => Yii::t('app', 'Enable'),
+            'start_date' => Yii::t('app', 'Start Date'),
+            'end_date' => Yii::t('app', 'End Date'), 
         ];
     }
 }

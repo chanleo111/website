@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $tel
 */
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+class BackEndUser extends ActiveRecord implements \yii\web\IdentityInterface
 {
    
     public static function tableName()
@@ -25,8 +25,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['username', 'password'], 'required'],
-            [['id','tel','deleted'], 'integer'],  
-            [['email'], 'string', 'max' => 50],            
+            [['id','tel','deleted'], 'integer'], 
+            [['email'], 'string', 'max' => 50],
         ];
     }
     
@@ -35,8 +35,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * {@inheritdoc}
      */
     public static function findIdentity($id)
-    {
-        //return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+    {        
         return self::findOne($id);
     }
 
@@ -48,13 +47,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return static::findOne(['access_token' => $token]);
     }
 
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
     public static function findByUsername($username)
     {            
         $user = self::findAll(['username' => $username ,'deleted' => 0]); 
@@ -85,22 +77,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->authKey === $authKey;
     }
 
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
-     */
     public function validatePassword($password)
-    {
-        echo $password;
-        exit();
-        if(!empty($password)){
-            $user = self::findOne(['password' => $password , 'deleted' => 0]); 
+    {              
+        $user = self::findOne(['password' => $password, 'deleted' => 0]);
+        
+        if(!empty($user)){
             return $user->password == $password;
         }else{
             return false;
         }
-        
-    }    
+    }
 }

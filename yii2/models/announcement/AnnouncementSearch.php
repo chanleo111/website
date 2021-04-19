@@ -14,11 +14,13 @@ class AnnouncementSearch extends Announcement
     /**
      * {@inheritdoc}
      */
+  
+
     public function rules()
     {
         return [
-            [['id', 'annoid'], 'integer'],
-            [['language', 'voice_file'], 'safe'],
+            [['id', 'enable'], 'integer'],           
+            [['title', 'description'], 'safe'],
         ];
     }
 
@@ -57,13 +59,11 @@ class AnnouncementSearch extends Announcement
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'annoid' => $this->annoid,
+        $query->andFilterWhere([            
         ]);
 
-        $query->andFilterWhere(['like', 'language', $this->language])
-            ->andFilterWhere(['like', 'voice_file', $this->voice_file]);
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }
