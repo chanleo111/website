@@ -14,7 +14,8 @@ use yii\db\ActiveRecord;
 
 class BackEndUser extends ActiveRecord implements \yii\web\IdentityInterface
 {
-   
+    const SUPERADMIN = '1';
+    const ADMIN = '2';
     public static function tableName()
 
     {
@@ -78,11 +79,11 @@ class BackEndUser extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public function validatePassword($password)
-    {              
+    {
         $user = self::findOne(['password' => $password, 'deleted' => 0]);
         
         if(!empty($user)){
-            return $user->password == $password;
+            return $user->password === $password;
         }else{
             return false;
         }

@@ -11,6 +11,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    
     'components' => [
         'request' => [            
             'cookieValidationKey' => '636dfc2afd553c9d9d71105e8713af08',
@@ -25,7 +26,7 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
+        ],        
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',            
             'useFileTransport' => true,
@@ -39,8 +40,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
-        
+        'db' => $db,        
         'urlManager' => [
             'enablePrettyUrl' => false,
             'showScriptName' => false,            
@@ -49,6 +49,7 @@ $config = [
         ],
         
     ],
+    'timeZone'=>'Asia/Hong_Kong',
     'params' => $params,
 ];
 

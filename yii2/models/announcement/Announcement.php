@@ -2,6 +2,7 @@
 namespace app\models\announcement;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "announcement".
@@ -14,7 +15,7 @@ use Yii;
  * @property int $enable
  
  */
-class Announcement extends \yii\db\ActiveRecord
+class Announcement extends ActiveRecord
 {
     /**
      * {@inheritdoc}
