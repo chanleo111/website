@@ -15,15 +15,9 @@ use kartik\date\DatePicker;
 
 
 
-<div class="form-group">
-    <div class="col-md-8">
-        <?= Html::button('Add Announcement',['class' => 'btn btn-success','onclick'=> "submitAction('edit','')"]) ?>        
-    </div>
-    
-    <div class="col-md-4">
-        <?= Html::button('Import Excel',['class' => 'btn btn-success','onclick'=> "submitAction('import','')"]) ?>
-        <?= Html::button('Export Excel',['class' => 'btn btn-success','onclick'=> "submitAction('export','')"]) ?>        
-    </div>
+<div class="form-group">    
+    <?= Html::button('Add User',['class' => 'btn btn-success','onclick'=> "submitAction('edit','')"]) ?>        
+
 </div>
 <br>
 <br>
@@ -34,25 +28,37 @@ use kartik\date\DatePicker;
         'columns' => [
 
             [   
-               'attribute' => 'title'                
+               'attribute' => 'username'                
             ],
             
             [
-               'attribute' => 'description'                
+               'attribute' => 'tel',
+               'format' => 'raw',
+               'value' => function ($model) {
+                            if(!empty($model->tel)){
+                                return $model->tel;
+                            }else{
+                                return '';
+                            }
+                        },
             ],
             
             [
-               'attribute' => 'enable'                
+               'attribute' => 'email',
+               'format' => 'raw',
+               'value' => function ($model) {
+                            if(!empty($model->email)){
+                                return $model->email;
+                            }else{
+                                return '';
+                            }
+                        }, 
             ],
-            
+            /*
             [
-               'attribute' => 'start_date'                
+               'attribute' => 'role'                
             ],
-            
-            [
-               'attribute' => 'end_date'                
-            ],
-
+            */
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Action',
@@ -65,7 +71,7 @@ use kartik\date\DatePicker;
                     },
                     'delete'=> function($url,$model){
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#', [
-                                      'onclick'=>"submitAction('delete','$model->id','$model->title')",
+                                      'onclick'=>"submitAction('delete','$model->id','$model->username')",
                                 ]);
                     }
                 ]
@@ -76,14 +82,14 @@ use kartik\date\DatePicker;
 
 <script>
     
-function submitAction(action,id,title){
+function submitAction(action,id,username){
     //console.log('action:'+action);
     //console.log('id:'+id);
     $("#action").val(action);
     $("#id").val(id);
     
     if(action == 'delete'){
-       window.confirm("Are you delete announcement" + " title: ("+title +")");
+       window.confirm("Are you delete user" + " username: ("+username +")");
        $("#form").submit();
     }else{
        $("#form").submit();

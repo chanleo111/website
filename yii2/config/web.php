@@ -1,4 +1,5 @@
 <?php
+use \yii\web\Request;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -14,7 +15,7 @@ $config = [
     
     'components' => [
         'request' => [            
-            'cookieValidationKey' => '636dfc2afd553c9d9d71105e8713af08',
+            'cookieValidationKey' => '636dfc2afd553c9d9d71105e8713af08',           
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -41,11 +42,11 @@ $config = [
             ],
         ],
         'db' => $db,        
-        'urlManager' => [
-            'enablePrettyUrl' => false,
+        'urlManager' => [            
+            'enablePrettyUrl' => true,
             'showScriptName' => false,            
-            'rules' => [              
-            ],
+            'rules' => [
+            ]
         ],
         
     ],

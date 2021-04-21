@@ -5,12 +5,11 @@ namespace app\controllers\user;
 use Yii;
 use yii\base\Action;
 use app\models\ActionLog;
-use app\models\BackEndUser;
-use app\models\BackEndUserSearch;
+use app\models\ActionLogSearch;
 
 
-class UserManagementAction extends Action {
-    private $listViewFile = 'list';
+class ActionLogAction extends Action {
+    private $listViewFile = 'actionlog';
     
     public function run(){
         if(filter_has_var(INPUT_POST,'action')){
@@ -27,7 +26,7 @@ class UserManagementAction extends Action {
             $this->edit();
         }
 
-        $searchModel = new BackEndUserSearch();
+        $searchModel = new ActionLogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         return $this->controller->render($this->listViewFile, [
@@ -43,18 +42,18 @@ class UserManagementAction extends Action {
             $id = filter_input(INPUT_GET, 'id',FILTER_VALIDATE_INT);
         }
         
-        $model = BackEndUser::findOne(['id' => $id,'deleted' => 0]);
+        $model = ActionLog::findOne(['id' => $id]);
         
         if($model != null){
            $model->deleted = 1;
            $model->save(false);
-           ActionLog::saveActionLog(Yii::$app->controller->action->id,Yii::$app->controller->id,
+           Actionlog::saveActionLog(Yii::$app->controller->action->id,Yii::$app->controller->id,
                               Yii::$app->request->getUserIP(),'Delete User',
                               Yii::$app->user->identity->username,date('Y-m-d H:i:s'));
            Yii::$app->getSession()->setFlash('success','Delete User Success');
         }
 
-        return $this->controller->redirect($listView);
+        return $this->controller->redirect($this->listViewFile);
     }
 }
 

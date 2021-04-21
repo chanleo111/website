@@ -10,6 +10,7 @@ class UserController extends Controller{
     public function actions(){
         return array(
             'usermanagement' => \app\controllers\user\UserManagementAction::class,
+            'actionlog' => \app\controllers\user\ActionLogAction::class,
         );
     }
 

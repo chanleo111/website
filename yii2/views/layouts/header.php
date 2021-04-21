@@ -37,6 +37,10 @@ use app\models\BackEndUser;
                         'label' => '<i class="glyphicon glyphicon-user"></i>Profile', 'url' => ['/user/profile'],
                         'visible' => !Yii::$app->user->isGuest,
                     ],
+                    [
+                        'label' => 'Action Log', 'url' => ['/user/actionlog'],
+                        'visible' => !Yii::$app->user->isGuest,
+                    ],
                 ],
             ],
           
@@ -47,7 +51,7 @@ use app\models\BackEndUser;
            
             [
               'label' => '<i class=""></i>Announcement menagement', 'url' => ['/announcement/announcement'],
-              'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->roleid == BackEndUser::ADMIN, 
+              'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->roleid == BackEndUser::ADMIN
             ],
             
             Yii::$app->user->isGuest ? (

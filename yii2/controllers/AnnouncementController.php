@@ -6,11 +6,10 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class AnnouncementController extends Controller{
-        
+
     public function actions(){
-        return array(    
+        return array(
             'announcement' => \app\controllers\announcement\AnnouncementAction::class,
         );
     }
-        
 }

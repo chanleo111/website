@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\ActionLog;
 
 class SiteController extends Controller
 {
@@ -73,28 +74,39 @@ class SiteController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
+        }        
+        
+        $model = new LoginForm();        
+        
+        if ($model->load(Yii::$app->request->post())) {  
+            if($model->login()){
+                ActionLog::saveActionLog(Yii::$app->controller->action->id,Yii::$app->controller->id,
+                                      Yii::$app->request->getUserIP(),'Login Success',
+                                      $model->username,date('Y-m-d H:i:s'));
+                return $this->goBack();
+            }else{
+                ActionLog::saveActionLog(Yii::$app->controller->action->id,Yii::$app->controller->id,
+                                  Yii::$app->request->getUserIP(),'Login Success',
+                                  $model->username,date('Y-m-d H:i:s'));
+            }
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
     }
-
+   
     /**
      * Logout action.
      *
      * @return Response
      */
     public function actionLogout()
-    {
+    {           
+        ActionLog::saveActionLog(Yii::$app->controller->action->id,Yii::$app->controller->id,
+                              Yii::$app->request->getUserIP(),'Logout',
+                              Yii::$app->user->identity->username,date('Y-m-d H:i:s'));
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
