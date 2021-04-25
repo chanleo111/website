@@ -14,13 +14,13 @@ class BackEndUserSearch extends BackEndUser
     /**
      * {@inheritdoc}
      */
-    public $role;
+    public $roleid;
     
     public function rules()
     {
         return [
             [['id', 'tel', 'deleted', 'roleid'], 'integer'],
-            [['username', 'password', 'email', 'authKey','role'], 'safe'],
+            [['username', 'password', 'email', 'authKey','roleid'], 'safe'],
         ];
     }
 
@@ -42,7 +42,7 @@ class BackEndUserSearch extends BackEndUser
      */
     public function search($params)
     {
-        $query = BackEndUser::find();
+        $query = BackEndUser::find()->joinWith(['roles']);
 
         // add conditions that should always apply here
 
@@ -59,8 +59,8 @@ class BackEndUserSearch extends BackEndUser
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([           
-           
+        $query->andFilterWhere([
+           'deleted' => 0,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

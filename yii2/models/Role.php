@@ -40,5 +40,6 @@ class Role extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'role' => Yii::t('app', 'Role'),
         ];
-    }
+    }    
+    
 }

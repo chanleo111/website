@@ -2,6 +2,7 @@
 
 namespace app\models;
 use yii\db\ActiveRecord;
+use app\models\Role;
 
 /**
  * @property int $id
@@ -86,6 +87,19 @@ class BackEndUser extends ActiveRecord implements \yii\web\IdentityInterface
             return $user->password === $password;
         }else{
             return false;
+        }
+    }
+    
+    public function getRoles(){
+        return $this->hasOne(Role::className(), ['id' => 'roleid']);
+    }
+    
+    public function getRole(){
+        switch($this->roleid){
+            case "1" :return "Super Admin"; break;
+            case "2" :return "Admin"; break;
+            case "3" :return "User"; break;
+            default: return "";
         }
     }
 }

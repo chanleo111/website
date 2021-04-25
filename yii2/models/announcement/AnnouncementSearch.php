@@ -59,7 +59,7 @@ class AnnouncementSearch extends Announcement
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([            
+        $query->andFilterWhere([
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

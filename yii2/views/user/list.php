@@ -5,6 +5,7 @@ use yii\grid\ActionColumn;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 
+$this->title = 'User management';
 ?>
 
 <?php ActiveForm::begin(['id' => 'form','action'=>'#','method'=>'post']); ?>
@@ -25,8 +26,8 @@ use kartik\date\DatePicker;
 <div class="table-responsive">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel'=>$searchModel,
         'columns' => [
-
             [   
                'attribute' => 'username'                
             ],
@@ -54,11 +55,14 @@ use kartik\date\DatePicker;
                             }
                         }, 
             ],
-            /*
+            
             [
-               'attribute' => 'role'                
+               'attribute' => 'roleid',
+               'value' => function ($model){
+                            return $model->getRole();
+                        },
             ],
-            */
+            
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Action',

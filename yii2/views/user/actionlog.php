@@ -1,29 +1,60 @@
 <?php
 use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\grid\ActionColumn;
 use yii\widgets\ActiveForm;
-use kartik\date\DatePicker;
+use kartik\datetime\DateTimePicker;
 
+$this->title = 'Action Log';
 ?>
 
 <?php ActiveForm::begin(['id' => 'form','action'=>'#','method'=>'post']); ?>
 
 <?= Html::hiddenInput('action', '',['id' => 'action']);?>
 <?= Html::hiddenInput('id', '',['id' => 'id']);?>
-<?php ActiveForm::end();?>
 
 <div class="form-group">
-    <div class="col text-left">       
+    <div class="col-md-4">
+        <?= Html::label('Date From:'); ?>
+        <?= DateTimePicker::widget([
+            'name'  => 'date_from',
+            'value' => $date_from,            
+            'removeButton' => false,
+            'convertFormat' => true,
+            'pluginOptions' => [
+                'format' => 'y-MM-dd h:i',
+                'todayHighlight' => true,
+                'todayBtn' => true,
+            ]   
+        ]);?>
+    </div>    
+    <div class="col-md-4">
+        <?= Html::label('Date To:'); ?>
+        <?= DateTimePicker::widget([
+            'name' => 'date_to',
+            'value' => $date_to,
+            'removeButton' => false,
+            'convertFormat' => true,
+            'pluginOptions' => [
+                'format' => 'y-MM-dd H:i',
+                'todayHighlight' => true,
+                'todayBtn' => true,
+            ]
+        ]);?>
     </div>
-    <div class="col text-right">  
-       <?= Html::button('Export Excel',['class' => 'btn btn-success','onclick'=> "submitAction('export','')"]) ?>
+    <br>
+    <div class="col-md-4">
+        <?= Html::button('Export Excel',['class' => 'btn btn-success','onclick'=> "submitAction('export','')"]) ?>
     </div>
+<?php ActiveForm::end();?>
 </div>
+<br>
+<br>
+<br>
 
 <div class="table-responsive">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel'=>$searchModel,
         'columns' => [
 
             [   
@@ -54,6 +85,10 @@ use kartik\date\DatePicker;
                         }, 
             ],
             
+            [
+               'attribute' => 'log_time'
+            ],                    
+                                
             [
                'attribute' => 'username'                
             ],
