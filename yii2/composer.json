@@ -21,7 +21,6 @@
         "kartik-v/yii2-icons": "@dev",  
 		"kartik-v/yii2-widget-datetimepicker": "@dev",	
 		"yii2tech/spreadsheet": "*"
-		
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -39,6 +38,9 @@
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
+        }
+		 "github-oauth": {
+            "github.com": "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"
         }
     },
     "scripts": {
